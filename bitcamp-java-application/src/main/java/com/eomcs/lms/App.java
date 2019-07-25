@@ -275,7 +275,7 @@ public class App {
         board.setCreatedDate(Date.valueOf(in2.readUTF()));
         board.setViewCount(in2.readInt());
         
-        // 게시판 데이터를 담은 Lesson 객체를 lessonList에 추가한다.
+        // 게시판 데이터를 담은 Board 객체를 boardList에 추가한다.
         boardList.add(board);
       }
       //in.read();
@@ -359,7 +359,7 @@ public class App {
         member.setPhoto(in2.readUTF());
         member.setRegisteredDate(Date.valueOf(in2.readUTF()));
         
-        // 회원 데이터를 담은 Lesson 객체를 lessonList에 추가한다.
+        // 회원 데이터를 담은 Member 객체를 memberList에 추가한다.
         memberList.add(member);
       }
       //in.read();
