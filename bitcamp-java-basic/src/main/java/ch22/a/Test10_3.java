@@ -15,7 +15,6 @@ public class Test10_3 {
       @Override
       public boolean accept(File dir, String name) {
         return name.endsWith(".txt");
-        
       }
     });
     

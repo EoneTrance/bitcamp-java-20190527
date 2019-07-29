@@ -6,12 +6,4 @@ public class Sedan extends Car {
     System.out.println("달린다!");
   }
   
-  public void openSunRoof() {
-    System.out.println("썬루프를 연다.");
-  }
-  
-  public void closeSunRoof() {
-    System.out.println("썬루프를 닫는다.");
-  }
- 
 }

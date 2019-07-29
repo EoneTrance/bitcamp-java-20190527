@@ -12,7 +12,6 @@ public class Test11_2 {
       @Override
       public boolean accept(File pathname) {
         return pathname.isFile() && pathname.getName().endsWith(".txt");
-
       }
     }
     

@@ -9,9 +9,8 @@ public class Test11_1 {
   // static nested class 
   static class TextFileFilter implements FileFilter {
     @Override
-    public boolean accept(File pathname) {
-      return pathname.isFile() && pathname.getName().endsWith(".txt");
-      
+    public boolean accept(File file) {
+      return file.isFile() && file.getName().endsWith(".txt");
     }
   }
   
