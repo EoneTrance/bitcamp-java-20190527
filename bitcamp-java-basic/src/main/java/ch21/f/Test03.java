@@ -37,10 +37,11 @@ public class Test03 {
       
       // try 블록을 벗어나기 전에 close()가 자동 호출된다.
       
-    } catch (Exception e){
+    } catch (Exception e) {
       System.out.println("예외 발생!");
     }
      
+    System.out.println("종료");
   }
 }
 

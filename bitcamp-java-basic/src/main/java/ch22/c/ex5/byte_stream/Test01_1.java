@@ -1,20 +1,18 @@
-// DataOutputStream + BufferedOutputStream
-package ch22.c.ex4;
+// Java에서 제공하는 데코레이터 사용하기 : 버퍼없이 대량의 primitive 타입의 값을 출력하기 
+package ch22.c.ex5.byte_stream;
 
+import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 
-public class Test02_1 {
+public class Test01_1 {
   public static void main(String[] args) throws Exception {
 
     // 실제 파일에 출력을 수행하는 객체를 준비한다.
     FileOutputStream other = new FileOutputStream("temp/data.bin");
     
-    // 위 객체에 먼저 버퍼링 기능을 붙인다.
-    BufferedOutputStream other2 = new BufferedOutputStream(other);
-    
-    // 위 데코레이터 객체에 다시 primitive 타입의 값을 출력하는 데코레이터 객체를 붙인다.
-    DataOutputStream out = new DataOutputStream(other2);
-    
+    // 파일을 출력하는 객체에 primitive 타입의 값을 출력하는 데코레이터 객체를 붙인다.
+    DataOutputStream out = new DataOutputStream(other);
+
     short s = 0x1122;
     int i = 0x33445566;
     long l = 0x1122334455667788L;
@@ -31,9 +29,6 @@ public class Test02_1 {
       out.writeUTF(str);
       out.writeBoolean(b);
     }
-    
-    // 버퍼 기능을 사용할 때는 항상 맨 마지막에 잔여 데이터를 출력해야 한다.
-    out.flush();
     
     long end = System.currentTimeMillis();
     System.out.println(end - start);
