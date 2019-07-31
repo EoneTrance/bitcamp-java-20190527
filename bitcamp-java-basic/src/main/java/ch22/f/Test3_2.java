@@ -13,7 +13,7 @@ public class Test3_2 {
     // => Score3에 tel 필드와 getter/setter를 추가하고,
     //    toString()을 다시 생성한 후 
     //    score3.data 파일을 읽어보라.
-    //    단 servialVersionUID 값은 그대로 100이 되게 하라.
+    //    단 serialVersionUID 값은 그대로 100이 되게 하라.
     // 
     FileInputStream in0 = new FileInputStream("temp/score.data");
     ObjectInputStream in = new ObjectInputStream(in0);
