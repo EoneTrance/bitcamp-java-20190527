@@ -27,6 +27,7 @@ public class DataLoaderListener implements ApplicationContextListener {
   ArrayList<Board> boardList = new ArrayList<>();
 
   // 애플리케이션이 시작될 때 수업관리 데이터를 로딩한다.
+  @Override
   public void contextInitialized(Map<String, Object> beanContainer) {
     // 이전에 저장된 애플리케이션 데이터를 로딩한다.
     loadLessonData();

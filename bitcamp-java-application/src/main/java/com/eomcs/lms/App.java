@@ -44,7 +44,7 @@ public class App {
 
   // App 객체가 사용할 값을 모아두는 바구니 준비
   Map<String, Object> beanContainer = new HashMap<>();
-  
+
   Scanner keyScan;
 
   @SuppressWarnings("unchecked")
@@ -54,12 +54,12 @@ public class App {
     for (ApplicationContextListener listener : appCtxListeners) {
       listener.contextInitialized(beanContainer);
     }
-    
+
     // 옵저버에게 보고한 후 옵저버가 준비한 객체를 꺼낸다.
     List<Lesson> lessonList = (List<Lesson>)beanContainer.get("lessonList");
     List<Member> memberList = (List<Member>)beanContainer.get("memberList");
     List<Board> boardList = (List<Board>)beanContainer.get("boardList");
-    
+
     keyScan = new Scanner(System.in);
 
     Deque<String> commandStack = new ArrayDeque<>();
@@ -146,8 +146,6 @@ public class App {
     return keyScan.nextLine();
   }
 
-
-
   // ApplicationContextListener 옵저버를 등록하는 메소드
   public void addApplicationContextListener(ApplicationContextListener listener) {
     this.appCtxListeners.add(listener);
@@ -155,11 +153,11 @@ public class App {
 
   public static void main(String[] args) {
     App app = new App();
-    
+
     // 애플리케이션을 시작하거나 종료할 때 보고를 받고자 하는 객체를 등록한다.
     app.addApplicationContextListener(new HelloApplicationContextListener());
     app.addApplicationContextListener(new DataLoaderListener());
-    
+
     app.service();
 
   }

@@ -18,9 +18,9 @@ public class LessonListCommand implements Command {
   public void execute() {
     Lesson[] lessons = list.toArray(new Lesson[] {});
     for (Lesson lesson : lessons) {
-      System.out.printf("%s, %s, %s ~ %s, %s\n", 
-          lesson.getNo(), lesson.getTitle(), 
-          lesson.getStartDate(), lesson.getEndDate(), lesson.getTotalHours());
+      System.out.printf("%s, %s, %s ~ %s, %s, %s\n", 
+          lesson.getNo(), lesson.getTitle(), lesson.getStartDate(),
+          lesson.getEndDate(), lesson.getTotalHours(), lesson.getDayHours());
     }
   }
 
