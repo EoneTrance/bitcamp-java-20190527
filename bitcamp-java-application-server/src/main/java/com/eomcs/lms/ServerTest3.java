@@ -6,9 +6,9 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.domain.Board;
 
-public class ServerTest {
+public class ServerTest3 {
 
   static ObjectOutputStream out;
   static ObjectInputStream in;
@@ -25,30 +25,24 @@ public class ServerTest {
       System.out.println("서버와 연결되었음.");
 
       // 다른 메소드가 입출력 객체를 사용할 수 있도록 스태틱 변수에 저장한다.
-      ServerTest.in = in;
-      ServerTest.out = out;
-      ServerTest.keyScan = new Scanner(System.in);
+      ServerTest3.in = in;
+      ServerTest3.out = out;
+      ServerTest3.keyScan = new Scanner(System.in);
 
-      Member member = new Member();
-      member.setNo(1);
-      member.setName("홍길동");
-      member.setEmail("hong@test.com");
-      member.setPhoto("hong.gif");
-      member.setTel("1111-1111");
+      Board board = new Board();
+      board.setNo(1);
+      board.setContents("제목1");
 
-      if (!add(member)) {
+      if (!add(board)) {
         error();
       }
       System.out.println("---------------");
 
-      member = new Member();
-      member.setNo(2);
-      member.setName("임꺽정");
-      member.setEmail("lim@test.com");
-      member.setPhoto("lim.gif");
-      member.setTel("2222-2222");
+      board = new Board();
+      board.setNo(2);
+      board.setContents("제목2");
 
-      if (!add(member)) {
+      if (!add(board)) {
         error();
       }
       System.out.println("---------------");
@@ -73,14 +67,11 @@ public class ServerTest {
       }
       System.out.println("---------------");
       
-      member = new Member();
-      member.setNo(2);
-      member.setName("홍길동2");
-      member.setEmail("hong2@test.com");
-      member.setPhoto("hong.gif");
-      member.setTel("3333-3333");
+      board = new Board();
+      board.setNo(2);
+      board.setContents("오호라");
       
-      if (!update(member)) {
+      if (!update(board)) {
         error();
       }
       System.out.println("---------------");
@@ -111,9 +102,9 @@ public class ServerTest {
   
   
 
-  private static boolean add(Member m) throws IOException, RequestException {
-    out.writeUTF("/member/add");
-    out.writeObject(m);
+  private static boolean add(Board obj) throws IOException, RequestException {
+    out.writeUTF("/board/add");
+    out.writeObject(obj);
     out.flush();
     System.out.print("add 요청함 => ");
 
@@ -127,7 +118,7 @@ public class ServerTest {
 
   @SuppressWarnings("unchecked")
   private static boolean list() throws Exception {
-    out.writeUTF("/member/list");
+    out.writeUTF("/board/list");
     out.flush();
     System.out.print("list 요청함 => ");
 
@@ -135,10 +126,10 @@ public class ServerTest {
       return false;
     }
     System.out.println("처리 완료!");
-    List<Member> list = (List<Member>) in.readObject();
+    List<Board> list = (List<Board>) in.readObject();
 
     System.out.println("---------------");
-    for (Member m : list) {
+    for (Board m : list) {
       System.out.println(m);
     }
     //list = null;
@@ -151,7 +142,7 @@ public class ServerTest {
   }
 
   private static boolean detail(int no) throws Exception {
-    out.writeUTF("/member/detail");
+    out.writeUTF("/board/detail");
     out.writeInt(no);
     out.flush();
     System.out.print("detail 요청함 => ");
@@ -164,22 +155,22 @@ public class ServerTest {
     System.out.println(in.readObject());
     
 //    @SuppressWarnings("unchecked")
-//    List<Member> list = (List<Member>)in.readObject();
+//    List<Board> list = (List<Board>)in.readObject();
 //    System.out.println("---------------");
 //
 //    if (no >= list.size()) {
 //      System.out.println("유효하지 않은 인덱스 (size: " + list.size() + ")");
 //    } else {
-//      Member member = list.get(no);
+//      Board member = list.get(no);
 //      System.out.println(member);
 //    }
 
     return true;
   }
   
-  private static boolean update(Member m) throws Exception {
-    out.writeUTF("/member/update");
-    out.writeObject(m);
+  private static boolean update(Board obj) throws Exception {
+    out.writeUTF("/board/update");
+    out.writeObject(obj);
     out.flush();
     System.out.print("update 요청함 => ");
 
@@ -192,7 +183,7 @@ public class ServerTest {
   }
 
   private static boolean delete(int no) throws Exception {
-    out.writeUTF("/member/delete");
+    out.writeUTF("/board/delete");
     out.writeInt(no);
     out.flush();
     System.out.print("delete 요청함 => ");

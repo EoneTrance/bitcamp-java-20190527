@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
-import com.eomcs.lms.domain.Member;
+import com.eomcs.lms.domain.Lesson;
 
-public class ServerTest {
+public class ServerTest2 {
 
   static ObjectOutputStream out;
   static ObjectInputStream in;
@@ -25,30 +26,34 @@ public class ServerTest {
       System.out.println("서버와 연결되었음.");
 
       // 다른 메소드가 입출력 객체를 사용할 수 있도록 스태틱 변수에 저장한다.
-      ServerTest.in = in;
-      ServerTest.out = out;
-      ServerTest.keyScan = new Scanner(System.in);
+      ServerTest2.in = in;
+      ServerTest2.out = out;
+      ServerTest2.keyScan = new Scanner(System.in);
 
-      Member member = new Member();
-      member.setNo(1);
-      member.setName("홍길동");
-      member.setEmail("hong@test.com");
-      member.setPhoto("hong.gif");
-      member.setTel("1111-1111");
+      Lesson lesson = new Lesson();
+      lesson.setNo(1);
+      lesson.setTitle("자바프로그래밍");
+      lesson.setContents("okok");
+      lesson.setStartDate(Date.valueOf("2019-01-01"));
+      lesson.setEndDate(Date.valueOf("2019-02-01"));
+      lesson.setTotalHours(200);
+      lesson.setDayHours(4);
 
-      if (!add(member)) {
+      if (!add(lesson)) {
         error();
       }
       System.out.println("---------------");
 
-      member = new Member();
-      member.setNo(2);
-      member.setName("임꺽정");
-      member.setEmail("lim@test.com");
-      member.setPhoto("lim.gif");
-      member.setTel("2222-2222");
+      lesson = new Lesson();
+      lesson.setNo(2);
+      lesson.setTitle("자바프로그래밍2");
+      lesson.setContents("okok2");
+      lesson.setStartDate(Date.valueOf("2019-02-01"));
+      lesson.setEndDate(Date.valueOf("2019-03-01"));
+      lesson.setTotalHours(300);
+      lesson.setDayHours(5);
 
-      if (!add(member)) {
+      if (!add(lesson)) {
         error();
       }
       System.out.println("---------------");
@@ -73,14 +78,16 @@ public class ServerTest {
       }
       System.out.println("---------------");
       
-      member = new Member();
-      member.setNo(2);
-      member.setName("홍길동2");
-      member.setEmail("hong2@test.com");
-      member.setPhoto("hong.gif");
-      member.setTel("3333-3333");
+      lesson = new Lesson();
+      lesson.setNo(2);
+      lesson.setTitle("자바 웹 프로그래밍");
+      lesson.setContents("웹개발자 양성과정");
+      lesson.setStartDate(Date.valueOf("2019-05-27"));
+      lesson.setEndDate(Date.valueOf("2019-11-27"));
+      lesson.setTotalHours(400);
+      lesson.setDayHours(3);
       
-      if (!update(member)) {
+      if (!update(lesson)) {
         error();
       }
       System.out.println("---------------");
@@ -111,9 +118,9 @@ public class ServerTest {
   
   
 
-  private static boolean add(Member m) throws IOException, RequestException {
-    out.writeUTF("/member/add");
-    out.writeObject(m);
+  private static boolean add(Lesson obj) throws IOException, RequestException {
+    out.writeUTF("/lesson/add");
+    out.writeObject(obj);
     out.flush();
     System.out.print("add 요청함 => ");
 
@@ -127,7 +134,7 @@ public class ServerTest {
 
   @SuppressWarnings("unchecked")
   private static boolean list() throws Exception {
-    out.writeUTF("/member/list");
+    out.writeUTF("/lesson/list");
     out.flush();
     System.out.print("list 요청함 => ");
 
@@ -135,10 +142,10 @@ public class ServerTest {
       return false;
     }
     System.out.println("처리 완료!");
-    List<Member> list = (List<Member>) in.readObject();
+    List<Lesson> list = (List<Lesson>) in.readObject();
 
     System.out.println("---------------");
-    for (Member m : list) {
+    for (Lesson m : list) {
       System.out.println(m);
     }
     //list = null;
@@ -151,7 +158,7 @@ public class ServerTest {
   }
 
   private static boolean detail(int no) throws Exception {
-    out.writeUTF("/member/detail");
+    out.writeUTF("/lesson/detail");
     out.writeInt(no);
     out.flush();
     System.out.print("detail 요청함 => ");
@@ -164,22 +171,22 @@ public class ServerTest {
     System.out.println(in.readObject());
     
 //    @SuppressWarnings("unchecked")
-//    List<Member> list = (List<Member>)in.readObject();
+//    List<Lesson> list = (List<Lesson>)in.readObject();
 //    System.out.println("---------------");
 //
 //    if (no >= list.size()) {
 //      System.out.println("유효하지 않은 인덱스 (size: " + list.size() + ")");
 //    } else {
-//      Member member = list.get(no);
+//      Lesson member = list.get(no);
 //      System.out.println(member);
 //    }
 
     return true;
   }
   
-  private static boolean update(Member m) throws Exception {
-    out.writeUTF("/member/update");
-    out.writeObject(m);
+  private static boolean update(Lesson obj) throws Exception {
+    out.writeUTF("/lesson/update");
+    out.writeObject(obj);
     out.flush();
     System.out.print("update 요청함 => ");
 
@@ -192,7 +199,7 @@ public class ServerTest {
   }
 
   private static boolean delete(int no) throws Exception {
-    out.writeUTF("/member/delete");
+    out.writeUTF("/lesson/delete");
     out.writeInt(no);
     out.flush();
     System.out.print("delete 요청함 => ");
