@@ -1,8 +1,9 @@
-package com.eomcs.lms;
+package com.eomcs.lms.servlet;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import com.eomcs.lms.Servlet;
 import com.eomcs.lms.domain.Board;
 
 public class BoardServlet implements Servlet{
