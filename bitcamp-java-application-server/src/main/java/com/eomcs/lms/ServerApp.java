@@ -62,6 +62,7 @@ public class ServerApp {
               out.writeUTF("fail");
               out.writeUTF("지원하지 않는 명령입니다.");
             }
+            
           }
         out.flush();
         
