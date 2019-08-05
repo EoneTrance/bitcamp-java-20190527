@@ -2,20 +2,17 @@ package com.eomcs.lms;
 
 import java.util.Map;
 import com.eomcs.lms.context.ServletContextListener;
-import com.eomcs.lms.servlet.BoardServlet;
-import com.eomcs.lms.servlet.LessonServlet;
-import com.eomcs.lms.servlet.MemberServlet;
-import com.eomcs.lms.servlet.dao.serial.BoardSerialDao;
-import com.eomcs.lms.servlet.dao.serial.LessonSerialDao;
-import com.eomcs.lms.servlet.dao.serial.MemberSerialDao;
+import com.eomcs.lms.servlet.dao.csv.BoardCsvDao;
+import com.eomcs.lms.servlet.dao.csv.LessonCsvDao;
+import com.eomcs.lms.servlet.dao.csv.MemberCsvDao;
 
 // 서버가 시작되거나 종료될 때 작업을 보고를 받고 작업을 수행하는 역할
 // => ServletContextListener 규칙을 준수해야만 서버의 시작과 종료 알림을 받을 수 있다.
 public class AppInitListener implements ServletContextListener{
 
-  BoardSerialDao boardDao;
-  MemberSerialDao memberDao;
-  LessonSerialDao lessonDao;
+  BoardCsvDao boardDao;
+  MemberCsvDao memberDao;
+  LessonCsvDao lessonDao;
 
   @Override
   public void contextInitialized(Map<String, Object> context) {
@@ -23,7 +20,7 @@ public class AppInitListener implements ServletContextListener{
     
     try {
       //boardDao = new BoardCsvDao("./board.csv");
-      boardDao = new BoardSerialDao("./board.ser");
+      boardDao = new BoardCsvDao("./board.csv");
       context.put("boardDao",boardDao);
     } catch (Exception e) {
       System.out.println("게시물 데이터 로딩 중 오류 발생!");
@@ -31,7 +28,7 @@ public class AppInitListener implements ServletContextListener{
     
     try {
       // memberDao = new MemberCsvDao("./member.csv");
-      memberDao = new MemberSerialDao("./member.ser");
+      memberDao = new MemberCsvDao("./member.csv");
       context.put("memberDao",memberDao);
     } catch (Exception e) {
       System.out.println("회원 데이터 로딩 중 오류 발생!");
@@ -39,7 +36,7 @@ public class AppInitListener implements ServletContextListener{
     
     try {
       //lessonDao = new LessonCsvDao("./lesson.csv");
-      lessonDao = new LessonSerialDao("./lesson.ser");
+      lessonDao = new LessonCsvDao("./lesson.csv");
       context.put("lessonDao",lessonDao);
     } catch (Exception e) {
       System.out.println("수업 데이터 로딩 중 오류 발생!");

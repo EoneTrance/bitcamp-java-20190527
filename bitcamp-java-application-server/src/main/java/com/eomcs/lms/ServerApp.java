@@ -70,8 +70,6 @@ public class ServerApp {
             memberServlet.service(command);
 
           } else if (command.equals("quit")) {
-            out.writeUTF("ok");
-            out.flush();
             break;
 
           } else {
