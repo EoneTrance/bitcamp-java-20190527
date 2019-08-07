@@ -13,14 +13,14 @@ public class Client3 {
 
   public static void main(String[] args) {
     
-    try (Socket socket = new Socket("192.168.0.109", 8888);
+    try (Socket socket = new Socket("192.168.0.49", 8888);
         DataOutputStream out = new DataOutputStream( 
             new BufferedOutputStream(socket.getOutputStream()));
         Scanner in = new Scanner(socket.getInputStream())) {
       
       System.out.println("서버와 연결되었음!");
       
-      File file = new File("temp/test.mp4");
+      File file = new File("temp/test.jpg");
       try (BufferedInputStream fileIn = new BufferedInputStream(
             new FileInputStream(file))) {
         
