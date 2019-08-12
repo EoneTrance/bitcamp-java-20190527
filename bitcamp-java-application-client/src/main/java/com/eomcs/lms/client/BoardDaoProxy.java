@@ -11,7 +11,7 @@ import com.eomcs.lms.dao.BoardDao;
 // Stateful 통신 방식을 Stateless 통신 방식으로 변경한다.
 // => 매번 요청할 때마다 서버와 연결한다.
 // => 서버의 응답을 받으면 연결을 끊는다.
-public class BoardDaoProxy implements BoardDao{
+public class BoardDaoProxy implements BoardDao {
 
   String host;
   int port;

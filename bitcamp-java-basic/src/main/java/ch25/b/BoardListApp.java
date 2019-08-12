@@ -29,10 +29,9 @@ public class BoardListApp {
             // 레코드에서 컬럼 값을 꺼낼 때 컬럼 번호를 지정하는 것 보다 
             // 컬럼의 이름을 지정하는 것이 유지보수에 더 좋다.
             //
-            System.out.printf("%d, %s, %s, %s, %d\n", 
+            System.out.printf("%d, %s, %s, %d\n", 
                 rs.getInt("board_id"), 
                 rs.getString("title"), 
-                rs.getString("contents"), 
                 rs.getDate("created_date"),
                 rs.getInt("view_count"));
           }

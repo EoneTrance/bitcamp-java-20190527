@@ -16,7 +16,7 @@ public class Test11 {
         
         // delete 문장은 executeUpdate()를 사용하여 서버에 전달한다.
         int count = stmt.executeUpdate(
-            "delete from x_board where board_id > 5");
+            "delete from x_board where board_id > 4");
         
         // 리턴 값은 delete 한 레코드의 개수이다.
         System.out.println(count);

@@ -45,22 +45,20 @@ public class ServerApp {
       }
 
       while (true) {
-        System.out.println("클라이언트 요청을 기다리는 중...");
-
         Socket socket = serverSocket.accept();
-
         // 스레드풀을 사용할 때는 직접 스레드를 만들지 않는다.
         // 단지 스레드풀에게 "스레드가 실행할 코드(Runnable 구현체)를 제출한다.
         // => 스레드풀은 남아 있는 스레드가 없으면 새로 만들어 RequestHandler를 실행할 것이다.
         // => 남아 있는 스레드가 있다면 그 스레드를 이용하여 RequestHandler를 실행할 것이다.
+        if (isStopping) {
+          break;
+        }
         executorService.submit(new RequestHandler(socket));
-
+        //Thread.currentThread().sleep(100);
       } // while
-
     } catch (Exception e) {
       e.printStackTrace();
     }
-    
   }
 
   // 서버가 시작하거나 종료할 때 보고를 받을 객체를 등록하는 메소드
@@ -80,8 +78,7 @@ public class ServerApp {
     }
     return null;
   }
-
-  // server
+  
   private void stop() {
     // 서버가 종료될 때 관찰자(observer)에게 보고한다.
     for (ServletContextListener listener : listeners) {
@@ -91,9 +88,10 @@ public class ServerApp {
     // 스레드풀에게 동작을 멈추라고 알려준다. 그리고 즉시 리턴한다.
     // => 그러면 스레드풀은 작업 중인 모든 스레드가 작업이 완료될 때까지 기다렸다가
     //    스레드풀의 작업을 종료한다.
+    isStopping = true;
     executorService.shutdown();
     System.out.println("서버 종료!");
-    System.exit(0); // 단점! 현재 실행중인 스레드까지 강제 종료시킨다.
+    //System.exit(0); // 단점! 현재 실행중인 스레드까지 강제 종료시킨다.
 
   }
 
@@ -144,6 +142,7 @@ public class ServerApp {
       System.out.println("클라이언트와 연결을 끊었음");
 
     }
+
   }
 
   public static void main(String[] args) {
