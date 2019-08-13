@@ -40,13 +40,13 @@ public class App {
 
   Connection con;
   HashMap<String,Command> commandMap = new HashMap<>();
-  
+
   int state;
 
   public App() throws Exception {
     // 처음에는 계속 클라이언트 요청을 처리해야 하는 상태로 설정한다.
     state = CONTINUE;
-    
+
     try {
       con = DriverManager.getConnection(
           "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
@@ -91,13 +91,13 @@ public class App {
       while (true) {
         // 클라이언트가 접속하면 별도의 스레드를 생성하여 처리를 맡긴다.
         new Thread(new CommandProcessor(serverSocket.accept())).start();
-        
+
         // 한 클라이가 serverstop 명령을 보내면 종료 상태로 설정되고
         // 다음 요청을 처리할 때 즉시 실행을 멈춘다.
         if (state == STOP)
           break;
       }
-      
+
       System.out.println("애플리케이션 서버를 종료함!");
 
     } catch (Exception e) {
@@ -115,15 +115,15 @@ public class App {
 
     }
   }
-  
+
   class CommandProcessor implements Runnable {
 
     Socket socket;
-    
+
     public CommandProcessor(Socket socket) {
       this.socket = socket;
     }
-    
+
     @Override
     public void run() {
       try (Socket socket = this.socket;
@@ -155,7 +155,7 @@ public class App {
         }
         out.println("!end!");
         out.flush();
-        
+
         System.out.println("클라이언트와 연결 끊음!");
 
       } catch (Exception e) {
