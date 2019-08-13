@@ -1,4 +1,4 @@
-// v37_4 : Stateful 통신 방식을 Stateless 통신 방식으로 변경하기.
+// v37_5 : 한 요청 처리에 시간이 오래 걸릴 경우 Stateless 통신 방법으로도 해결 안됨. 멀티 스레드 적용하여 해결하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -40,9 +40,13 @@ public class App {
 
   Connection con;
   HashMap<String,Command> commandMap = new HashMap<>();
+  
+  int state;
 
   public App() throws Exception {
-    // DAO가 사용할 Connection 객체 준비하기
+    // 처음에는 계속 클라이언트 요청을 처리해야 하는 상태로 설정한다.
+    state = CONTINUE;
+    
     try {
       con = DriverManager.getConnection(
           "jdbc:mariadb://localhost/bitcampdb?user=bitcamp&password=1111");
@@ -85,10 +89,15 @@ public class App {
       System.out.println("애플리케이션 서버가 시작되었음!");
 
       while (true) {
-        if (processClient(serverSocket.accept()) == STOP)
+        // 클라이언트가 접속하면 별도의 스레드를 생성하여 처리를 맡긴다.
+        new Thread(new CommandProcessor(serverSocket.accept())).start();
+        
+        // 한 클라이가 serverstop 명령을 보내면 종료 상태로 설정되고
+        // 다음 요청을 처리할 때 즉시 실행을 멈춘다.
+        if (state == STOP)
           break;
-
       }
+      
       System.out.println("애플리케이션 서버를 종료함!");
 
     } catch (Exception e) {
@@ -106,48 +115,53 @@ public class App {
 
     }
   }
+  
+  class CommandProcessor implements Runnable {
 
-  private int processClient(Socket s) {
-    int state = CONTINUE;
+    Socket socket;
+    
+    public CommandProcessor(Socket socket) {
+      this.socket = socket;
+    }
+    
+    @Override
+    public void run() {
+      try (Socket socket = this.socket;
+          BufferedReader in = new BufferedReader(
+              new InputStreamReader(socket.getInputStream()));
+          PrintStream out = new PrintStream(socket.getOutputStream())) {
 
-    try (Socket socket = s;
-        BufferedReader in = new BufferedReader(
-            new InputStreamReader(socket.getInputStream()));
-        PrintStream out = new PrintStream(socket.getOutputStream())) {
+        System.out.println("클라이언트와 연결됨!");
 
-      System.out.println("클라이언트와 연결됨!");
+        // 클라이언트가 보낸 명령을 읽는다.
+        String request = in.readLine();
+        if (request.equals("quit")) {
+          out.println("Good bye!");
 
-      // 클라이언트가 보낸 명령을 읽는다.
-      String request = in.readLine();
-      if (request.equals("quit")) {
-        out.println("Good bye!");
-
-      } else if (request.equals("serverstop")) {
-        state = STOP;
-        out.println("Good bye!");
-
-      } else {
-        Command command = commandMap.get(request);
-        if (command == null) {
-          out.println("해당 명령을 처리할 수 없습니다.");
+        } else if (request.equals("serverstop")) {
+          state = STOP;
+          out.println("Good bye!");
 
         } else {
-          command.execute(in, out);
+          // non-static 중첩 클래스는 바깥 클래스의 인스턴스 멤버를 사용할 수 있다.
+          Command command = commandMap.get(request);
+          if (command == null) {
+            out.println("해당 명령을 처리할 수 없습니다.");
 
+          } else {
+            command.execute(in, out);
+
+          }
         }
+        out.println("!end!");
+        out.flush();
+        
+        System.out.println("클라이언트와 연결 끊음!");
+
+      } catch (Exception e) {
+        System.out.println("클라이언트와 통신 오류!");
       }
-      out.println("!end!");
-      out.flush();
-      
-      System.out.println("클라이언트와 연결 끊음!");
-
-    } catch (Exception e) {
-      System.out.println("클라이언트와 통신 오류!");
-
     }
-    // 다른 클라이언트의 요청을 계속 처리할지 말지 상태 값으로 알려준다.
-    return state;
-
   }
 
   public static void main(String[] args) {
