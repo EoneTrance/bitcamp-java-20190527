@@ -1,4 +1,4 @@
-// v37_4 : Stateful 통신 방식을 Stateless 통신 방식으로 변경하기.
+// v37_3 : 애플리케이션 서버 아키텍처의 이점 확인하기. 검색 기능을 추가해도 클라이언트를 다시 설치할 필요가 없다.
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -37,7 +37,7 @@ public class App {
 
   private static final int CONTINUE = 1;
   private static final int STOP = 0;
-
+  
   Connection con;
   HashMap<String,Command> commandMap = new HashMap<>();
 
@@ -75,7 +75,7 @@ public class App {
     } catch (Exception e) {
       System.out.println("DBMS에 연결할 수 없습니다!");
       throw e;
-
+      
     }
   }
 
@@ -87,29 +87,29 @@ public class App {
       while (true) {
         if (processClient(serverSocket.accept()) == STOP)
           break;
-
+        
       }
       System.out.println("애플리케이션 서버를 종료함!");
-
+      
     } catch (Exception e) {
       System.out.println("소켓 통신 오류!");
       e.printStackTrace();
-
+      
     }
 
     // DBMS와의 연결을 끊는다.
     try {
       con.close();
-
+      
     } catch (Exception e) {
       // 연결 끊을 때 발생되는 예외는 무시한다.
-
+      
     }
   }
 
   private int processClient(Socket s) {
     int state = CONTINUE;
-
+    
     try (Socket socket = s;
         BufferedReader in = new BufferedReader(
             new InputStreamReader(socket.getInputStream()));
@@ -117,37 +117,39 @@ public class App {
 
       System.out.println("클라이언트와 연결됨!");
 
-      // 클라이언트가 보낸 명령을 읽는다.
-      String request = in.readLine();
-      if (request.equals("quit")) {
-        out.println("Good bye!");
+      while (true) {
+        // 클라이언트가 보낸 명령을 읽는다.
+        String request = in.readLine();
+        if (request.equals("quit")) {
+          break;
 
-      } else if (request.equals("serverstop")) {
-        state = STOP;
-        out.println("Good bye!");
+        } else if (request.equals("serverstop")) {
+          state = STOP;
+          break;
 
-      } else {
+        }
+
         Command command = commandMap.get(request);
         if (command == null) {
           out.println("해당 명령을 처리할 수 없습니다.");
-
+          
         } else {
           command.execute(in, out);
 
         }
-      }
-      out.println("!end!");
-      out.flush();
-      
-      System.out.println("클라이언트와 연결 끊음!");
+        out.println("!end!");
+        out.flush();
 
+      }
+      System.out.println("클라이언트와 연결 끊음!");
+      
     } catch (Exception e) {
       System.out.println("클라이언트와 통신 오류!");
-
+      
     }
     // 다른 클라이언트의 요청을 계속 처리할지 말지 상태 값으로 알려준다.
     return state;
-
+    
   }
 
   public static void main(String[] args) {
