@@ -25,10 +25,14 @@ public class ClientApp {
 
     System.out.print("서버? ");
     host = keyboard.nextLine();
-
-    System.out.print("포트? ");
-    port = Integer.parseInt(keyboard.nextLine());
-
+    if (host.equals("")) {
+      host = "localhost";
+      port = 8888;
+    } else {
+      System.out.print("포트? ");
+      port = Integer.parseInt(keyboard.nextLine());
+    }
+    
     Deque<String> commandStack = new ArrayDeque<>();
     Queue<String> commandQueue = new LinkedList<>();
 
