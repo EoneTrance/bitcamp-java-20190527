@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="MemberDao">
+<mapper namespace="com.eomcs.lms.dao.MemberDao">
 
   <resultMap type="member" id="MemberMap">
     <id column="member_id"         property="no"/>
@@ -85,8 +85,8 @@
   </delete>
   
   <select id="findByEmailPassword"
-          parameterType="Member" 
-          resultType="Member">
+          parameterType="map" 
+          resultMap="MemberMap">
     <include refid="basicColumn"/>
     from
       lms_member

@@ -8,7 +8,7 @@ import com.eomcs.lms.domain.Board;
 
 public class BoardListCommand implements Command {
 
-  private BoardDao boardDao;
+  BoardDao boardDao;
 
   public BoardListCommand(BoardDao boardDao) {
     this.boardDao = boardDao;

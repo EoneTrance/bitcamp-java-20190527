@@ -1,4 +1,4 @@
-// v44_1 : MyBatis의 dynamic sql 사용하기
+// v45_2 : MyBatis의 DAO 구현체 자동 생성기 이용하기(BoardxxCommand에만 적용)
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -18,11 +18,6 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.dao.mariadb.BoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.LessonDaoImpl;
-import com.eomcs.lms.dao.mariadb.MemberDaoImpl;
-import com.eomcs.lms.dao.mariadb.PhotoBoardDaoImpl;
-import com.eomcs.lms.dao.mariadb.PhotoFileDaoImpl;
 import com.eomcs.lms.handler.BoardAddCommand;
 import com.eomcs.lms.handler.BoardDeleteCommand;
 import com.eomcs.lms.handler.BoardDetailCommand;
@@ -46,6 +41,7 @@ import com.eomcs.lms.handler.PhotoBoardDeleteCommand;
 import com.eomcs.lms.handler.PhotoBoardDetailCommand;
 import com.eomcs.lms.handler.PhotoBoardListCommand;
 import com.eomcs.lms.handler.PhotoBoardUpdateCommand;
+import com.eomcs.util.MyBatisDaoFactory;
 import com.eomcs.util.PlatformTransactionManager;
 import com.eomcs.util.SqlSessionFactoryProxy;
 
@@ -78,12 +74,15 @@ public class App {
       // 트랜잭션 관리자를 준비한다.
       PlatformTransactionManager txManager = new PlatformTransactionManager(sqlSessionFactory);
 
+      // DAO 구현체 생성기를 준비한다.
+      MyBatisDaoFactory daoFactory = new MyBatisDaoFactory(sqlSessionFactory);
+      
       // Command 객체가 사용할 데이터 처리 객체를 준비한다.
-      BoardDao boardDao = new BoardDaoImpl(sqlSessionFactory);
-      MemberDao memberDao = new MemberDaoImpl(sqlSessionFactory);
-      LessonDao lessonDao = new LessonDaoImpl(sqlSessionFactory);
-      PhotoBoardDao photoBoardDao = new PhotoBoardDaoImpl(sqlSessionFactory);
-      PhotoFileDao photoFileDao = new PhotoFileDaoImpl(sqlSessionFactory);
+      BoardDao boardDao = sqlSessionFactory.openSession().getMapper(BoardDao.class);
+      LessonDao lessonDao = daoFactory.createDao(LessonDao.class);
+      MemberDao memberDao = daoFactory.createDao(MemberDao.class);
+      PhotoBoardDao photoBoardDao = daoFactory.createDao(PhotoBoardDao.class);
+      PhotoFileDao photoFileDao = daoFactory.createDao(PhotoFileDao.class);
 
       // 클라이언트 명령을 처리할 커맨드 객체를 준비한다.
       commandMap.put("/lesson/add", new LessonAddCommand(lessonDao));
@@ -99,11 +98,11 @@ public class App {
       commandMap.put("/member/update", new MemberUpdateCommand(memberDao));
       commandMap.put("/member/search", new MemberSearchCommand(memberDao));
 
-      commandMap.put("/board/add", new BoardAddCommand(boardDao));
-      commandMap.put("/board/delete", new BoardDeleteCommand(boardDao));
-      commandMap.put("/board/detail", new BoardDetailCommand(boardDao));
+      commandMap.put("/board/add", new BoardAddCommand(sqlSessionFactory));
+      commandMap.put("/board/delete", new BoardDeleteCommand(sqlSessionFactory));
+      commandMap.put("/board/detail", new BoardDetailCommand(sqlSessionFactory));
       commandMap.put("/board/list", new BoardListCommand(boardDao));
-      commandMap.put("/board/update", new BoardUpdateCommand(boardDao));
+      commandMap.put("/board/update", new BoardUpdateCommand(sqlSessionFactory));
 
       commandMap.put("/photoboard/add", 
           new PhotoBoardAddCommand(txManager, photoBoardDao, photoFileDao));
