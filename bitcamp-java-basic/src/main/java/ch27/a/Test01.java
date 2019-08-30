@@ -28,7 +28,7 @@ public class Test01 {
     //
     // 클래스 정보를 얻는 방법 예: 
     /*
-    String s = "hello"; 
+    String s = "hello";
     Class<?> c1 = String.class; // 클래스의 static 변수인 class의 값을 사용할 수 있다.
     Class<?> c2 = s.getClass(); // 인스턴스로 알아낼 수 있다.
     Class<?> c3 = Class.forName("java.lang.String"); // 클래스 정보를 리턴하는 도구를 이용.
