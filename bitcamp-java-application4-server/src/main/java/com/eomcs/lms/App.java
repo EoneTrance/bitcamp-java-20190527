@@ -1,4 +1,4 @@
-// v46_1 : Bean Container 적용하기
+// v47_1 : Annotation을 이용하여 BeanContainer가 관리할 객체를 지정하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
@@ -33,7 +33,7 @@ public class App {
   @SuppressWarnings("static-access")
   private void service() {
 
-    try (ServerSocket serverSocket = new ServerSocket(8888)){
+    try (ServerSocket serverSocket = new ServerSocket(8888)) {
       System.out.println("애플리케이션 서버가 시작되었음!");
 
       while (true) {

@@ -5,19 +5,16 @@ import java.io.PrintStream;
 import java.util.List;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 
+@Component("/member/search")
 public class MemberSearchCommand implements Command {
   
   private MemberDao memberDao;
   
   public MemberSearchCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
-  }
-  
-  @Override
-  public String getCommandName() {
-    return "/member/search";
   }
   
   @Override

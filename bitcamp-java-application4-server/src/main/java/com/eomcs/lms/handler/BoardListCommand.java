@@ -5,18 +5,15 @@ import java.io.PrintStream;
 import java.util.List;
 import com.eomcs.lms.dao.BoardDao;
 import com.eomcs.lms.domain.Board;
+import com.eomcs.util.Component;
 
+@Component("/board/list")
 public class BoardListCommand implements Command {
 
   private BoardDao boardDao;
 
   public BoardListCommand(BoardDao boardDao) {
     this.boardDao = boardDao;
-  }
-  
-  @Override
-  public String getCommandName() {
-    return "/board/list";
   }
 
   @Override

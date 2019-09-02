@@ -4,19 +4,16 @@ import java.io.BufferedReader;
 import java.io.PrintStream;
 import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.domain.Lesson;
+import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 
+@Component("/lesson/add")
 public class LessonAddCommand implements Command {
 
   private LessonDao lessonDao;
 
   public LessonAddCommand(LessonDao lessonDao) {
     this.lessonDao = lessonDao;
-  }
-  
-  @Override
-  public String getCommandName() {
-    return "/lesson/add";
   }
 
   @Override

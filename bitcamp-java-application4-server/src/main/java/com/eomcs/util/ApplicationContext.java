@@ -17,7 +17,6 @@ import com.eomcs.lms.dao.LessonDao;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.dao.PhotoBoardDao;
 import com.eomcs.lms.dao.PhotoFileDao;
-import com.eomcs.lms.handler.Command;
 
 // 자바 객체를 자동 생성하여 관리하는 역할
 //1단계 : App 클래스에서 객체 생성 코드를 분리하기
@@ -36,11 +35,10 @@ public class ApplicationContext {
 
     // 파라미터에 주어진 패키지를 뒤져서 Command 인터페이스를 구현한 클래스를 찾는다.
     // => 패키지의 경로를 알아낸다.
-
-    // => 찾은 클래스의 인스턴스를 생성한다.
     String packagePath = packageName.replace(".", "/");
     File path = Resources.getResourceAsFile(packagePath);
 
+    // => 찾은 클래스의 인스턴스를 생성한다.
     findCommandClass(path, packageName);
     createCommand();
     
@@ -69,7 +67,7 @@ public class ApplicationContext {
         String className = String.format("%s.%s", packageName, f.getName().replace(".class", ""));
         try {
           Class<?> clazz = Class.forName(className);
-          if (isCommand(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
+          if (isComponent(clazz) && !Modifier.isAbstract(clazz.getModifiers())) {
             classes.add(clazz);
           }
         } catch (ClassNotFoundException e) {
@@ -79,24 +77,32 @@ public class ApplicationContext {
     }
   }
 
-  private boolean isCommand(Class<?> clazz) {
-    Class<?>[] interfaces = clazz.getInterfaces();
-    for (Class<?> c : interfaces) {
-      // System.out.println(Modifier.isPrivate(c.getModifiers()));
-      if (c == Command.class) {
-        return true;
-      }
+  private boolean isComponent(Class<?> clazz) {
+    // 클래스 정보(타입) 에서 애노테이션 데이터를 추출한다.
+    // => 애노테이션 정보를 파라미터로 넘기면 그 애노테이션의 값을 리턴한다.
+    Component comp = clazz.getAnnotation(Component.class);
+    
+    if (comp == null) {
+      return false;
     }
-    return false;
+    return true;
   }
 
   private void createCommand() {
     for (Class<?> clazz : classes) {
+      // 클래스 정보에서 Component 애노테이션의 데이터를 추출한다.
+      // => 꺼내고자 하는 애노테이션의 타입을 정확하게 지정해야 한다.
+      Component compAnno = clazz.getAnnotation(Component.class);
+      
+      // 객체를 저장할 때 사용할 이름을 꺼낸다.
+      String beanName = compAnno.value();
+      if (beanName.length() == 0) { // 애노테이션에서 Bean 이름을 지정하지 않았다면
+        beanName = clazz.getName(); // 클래스의 이름을 Bean 이름으로 사용할 것이다.
+      }
       // 기본 생성자가 있으면 그 생성자를 호출하여 인스턴스를 만든다.
       try {
         Constructor<?> defaultConstuctor = clazz.getConstructor();
-        Command command = (Command) defaultConstuctor.newInstance();
-        objPool.put(command.getCommandName(), command);
+        objPool.put(beanName, defaultConstuctor.newInstance());
         continue;
       } catch (Exception e) {
       }
@@ -110,8 +116,7 @@ public class ApplicationContext {
         Object[] values = prepareParameterValues(params);
         
         // 준비된 값을 가지고 생성자를 통해 인스턴스를 생성한다.
-        Command command = (Command) constructor.newInstance(values);
-        objPool.put(command.getCommandName(), constructor.newInstance(values));
+        objPool.put(beanName, constructor.newInstance(values));
       } catch (Exception e) {
       }
     }
@@ -130,6 +135,7 @@ public class ApplicationContext {
     Iterator<?> values = objPool.values().iterator();
     while (values.hasNext()) {
       Object value = values.next();
+      System.out.println(value.getClass().getName());
       
       // 풀에서 꺼낸 객체의 타입이 일치하는지 검사
       if (value.getClass() == type) {

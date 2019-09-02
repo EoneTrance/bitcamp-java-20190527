@@ -4,18 +4,15 @@ import java.io.BufferedReader;
 import java.io.PrintStream;
 import com.eomcs.lms.dao.MemberDao;
 import com.eomcs.lms.domain.Member;
+import com.eomcs.util.Component;
 import com.eomcs.util.Input;
 
+@Component("/member/update")
 public class MemberUpdateCommand implements Command {
   private MemberDao memberDao;
   
   public MemberUpdateCommand(MemberDao memberDao) {
     this.memberDao = memberDao;
-  }
-  
-  @Override
-  public String getCommandName() {
-    return "/member/update";
   }
   
   @Override
