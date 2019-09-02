@@ -1,15 +1,16 @@
-// v47_1 : Annotation을 이용하여 BeanContainer가 관리할 객체를 지정하기
+// v48_1 : Annotation으로 호출될 메소드를 지정하기
 package com.eomcs.lms;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import com.eomcs.lms.handler.Command;
 import com.eomcs.util.ApplicationContext;
+import com.eomcs.util.RequestMapping;
 import com.eomcs.util.SqlSessionFactoryProxy;
 
 public class App {
@@ -92,8 +93,16 @@ public class App {
 
         } else {
           try {
-            Command command = (Command) appCtx.getBean(request);
-            command.execute(in, out);
+            Object command = appCtx.getBean(request);
+            Method requestHandler = getRequestHandler(command);
+
+            if (requestHandler != null) {
+              // 찾았으면 호출한다.
+              requestHandler.invoke(command, in, out);
+
+            } else {
+              throw new Exception("요청을 처리할 메소드가 없습니다.");
+            }
 
           }catch (Exception e) {
             out.println("해당 명령을 처리할 수 없습니다.");
@@ -116,6 +125,20 @@ public class App {
             (SqlSessionFactoryProxy) appCtx.getBean("sqlSessionFactory");
         proxy.clearSession();
       }
+    }
+
+    // 클래스의 메소드 중에서 @RequestMapping이 붙은 메소드를 찾아낸다.
+    private Method getRequestHandler(Object command) {
+      // 요청을 처리하기 위해 호출할 메소드를 찾아낸다.
+      // => 클래스의 public 메소드 목록을 꺼낸다.
+      Method[] methods = command.getClass().getMethods();
+      for (Method m : methods) {
+        RequestMapping anno = m.getAnnotation(RequestMapping.class);
+        if (anno != null) {
+          return m;
+        }
+      }
+      return null;
     }
   }
 

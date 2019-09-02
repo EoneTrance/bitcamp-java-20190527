@@ -135,7 +135,6 @@ public class ApplicationContext {
     Iterator<?> values = objPool.values().iterator();
     while (values.hasNext()) {
       Object value = values.next();
-      System.out.println(value.getClass().getName());
       
       // 풀에서 꺼낸 객체의 타입이 일치하는지 검사
       if (value.getClass() == type) {
