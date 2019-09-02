@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry output="bin/main" kind="src" path="src/main/java">
 		<attributes>
 			<attribute name="gradle_scope" value="main"/>
@@ -25,6 +24,7 @@
 			<attribute name="gradle_used_by_scope" value="test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="output" path="bin/default"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8/"/>
 	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.5.2/3846405819fc3b3a2052bc031482211c5a67399/mybatis-3.5.2-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.mybatis/mybatis/3.5.2/ecdede23e67304e1d47861851dc14cb53c0e369d/mybatis-3.5.2.jar">
 		<attributes>
@@ -36,7 +36,32 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/5.1.9.RELEASE/4c4d55141bf7dafaa4f64cce9a12dd12af52ce8d/spring-context-5.1.9.RELEASE-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/5.1.9.RELEASE/c37f8fe15a5ae4ea1f351bd46167fd492a84eefa/spring-context-5.1.9.RELEASE.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/27.1-jre/5dfa313690a903560bf27478345780a607bf1e9b/guava-27.1-jre-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/com.google.guava/guava/27.1-jre/e47b59c893079b87743cdcfb6f17ca95c08c592c/guava-27.1-jre.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/5.1.9.RELEASE/f78ddf20dc1f6cd57ce517b80c0814b51e7ab3b5/spring-aop-5.1.9.RELEASE-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/5.1.9.RELEASE/bc2312ffad02251b9d472e4a7c0e472a58f50fbf/spring-aop-5.1.9.RELEASE.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/5.1.9.RELEASE/72b33b58f7738d9914eba120866a7addf009974a/spring-beans-5.1.9.RELEASE-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/5.1.9.RELEASE/5a03b3983108d73978aec2fa3e681aedad6782c/spring-beans-5.1.9.RELEASE.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/5.1.9.RELEASE/814fd87d5318e1a660ca3c68e914b25bf8edcbb9/spring-expression-5.1.9.RELEASE-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/5.1.9.RELEASE/db3a2468c1b7d697ec3b3ec6e5652dc282994fe3/spring-expression-5.1.9.RELEASE.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/5.1.9.RELEASE/119dacc2a72dadc85d35fbd08ef16bdc382b24c5/spring-core-5.1.9.RELEASE-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/5.1.9.RELEASE/dc3815439579b4fa0c19970e6b8e5d774af8d988/spring-core-5.1.9.RELEASE.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -72,6 +97,11 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.17/8fb5b5ad9c9723951b9fccaba5bb657fa6064868/animal-sniffer-annotations-1.17-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.17/f97ce6decaea32b36101e37979f8b647f00681fb/animal-sniffer-annotations-1.17.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry sourcepath="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jcl/5.1.9.RELEASE/670f78ebc0d6754a0c7f44ad2bc9554e79e043c0/spring-jcl-5.1.9.RELEASE-sources.jar" kind="lib" path="/Users/eone/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jcl/5.1.9.RELEASE/7c372790c999777d20f364960cf557dd74f890cf/spring-jcl-5.1.9.RELEASE.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
