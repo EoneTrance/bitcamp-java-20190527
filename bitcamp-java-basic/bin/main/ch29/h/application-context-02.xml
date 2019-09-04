@@ -15,8 +15,11 @@
     <property name="cc" value="1980"/>
     <property name="valve" value="16"/>
     <property name="auto" value="true"/>
+    <property name="blackBox" ref="blackBox"/>
   </bean>
-  <bean id="c2" class="ch29.h.Car"/>
+  <bean id="c2" class="ch29.h.Car">
+    <property name="blackBox" ref="blackBox"/>
+  </bean>
   <bean id="c3" class="ch29.h.Car"/>
   <bean id="c4" class="ch29.h.Car"/>
   

@@ -52,9 +52,11 @@ public class Car {
     this.auto = auto;
   }
   public Date getCreatedDate() {
+    System.out.println("Car.getCreatedDate()");
     return createdDate;
   }
   public void setCreatedDate(Date createdDate) {
+    System.out.println("Car.setCreatedDate()");
     this.createdDate = createdDate;
   }
   public BlackBox getBlackBox() {

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+  <bean id="c1" class="ch29.b.Car2"/>
+  <bean name="c2" class="ch29.b.Car2"/>
+  <bean id="c3 c4 c5" class="ch29.b.Car2"/>
+  <bean name= "c6 c7 c8" class="ch29.b.Car2"/>
+  <bean id="c1,c2,c3" class="ch29.b.Car2"/>
+  <bean name="c1;c2;c3" class="ch29.b.Car2"/>
+  <bean id="c1" name="c2 c3" class="ch29.b.Car2"/>
+  
+</beans>

@@ -35,6 +35,7 @@ public class App {
   public App() throws Exception {
     // 처음에는 계속 클라이언트 요청을 처리해야 하는 상태로 설정한다.
     state = CONTINUE;
+    
     appCtx = new AnnotationConfigApplicationContext(AppConfig.class);
     
     // Spring IoC Container에 들어 있는(Spring IoC Container가 생성한) 객체 알아내기
@@ -46,9 +47,7 @@ public class App {
           beanName);
     }
     System.out.println("-------------------------------------------");
-    
     handlerMapping = createRequestMappingHandlerMapping();
-    
   }
 
   private RequestMappingHandlerMapping createRequestMappingHandlerMapping() {

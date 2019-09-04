@@ -38,7 +38,7 @@ public class MyBatisDaoFactory {
                 sqlSession.selectList(sqlId, args[0]);
             } else if (retType == int.class || retType == void.class) {
               // 리턴 타입이 int or void 일 경우 insert/update/delete 문을 실행하는 것이다.
-              // SqlSession 에서는 inser()/update()/delete()중 아무거나 호출해도 똑같다.
+              // SqlSession 에서는 insert()/update()/delete()중 아무거나 호출해도 똑같다.
               return (args == null) ? sqlSession.insert(sqlId) :
                 sqlSession.insert(sqlId, args[0]);
             } else {

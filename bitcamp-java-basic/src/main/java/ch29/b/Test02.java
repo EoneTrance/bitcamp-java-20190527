@@ -2,9 +2,7 @@
 package ch29.b;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class Test02 {
   public static void main(String[] args) {
@@ -37,7 +35,7 @@ public class Test02 {
     if (c6 == c8) System.out.println("c6 == c8");
     
     Car c9 = (Car) iocContainer.getBean("c9");
-    if (c6 == c9) System.out.println("c6 == c9");
+    System.out.println(c6 == c9);
   }
 }
 

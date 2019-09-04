@@ -28,6 +28,12 @@ public class MyCustomDateEditor extends PropertyEditorSupport {
     //    스프링 IoC 컨테이너는 getValue()를 호출하여 꺼내 쓴다.
     this.setValue(date);
   }
+  
+  @Override
+  public Object getValue() {
+    System.out.println("MyCustomDateEditor.getValue()");
+    return super.getValue();
+  }
 
 }
 

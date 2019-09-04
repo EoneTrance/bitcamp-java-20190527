@@ -28,6 +28,15 @@
     <property name="model" value="daynight"/>
   </bean>
   
+  <!-- 
+    BlackBox blackBox = new BlackBox();
+    blackBox.serMAker("비트오토");
+    blackBox.setModel("daynight");
+    
+    CarFactory carFactory = new CarFactory2(blackBox);
+    Car c1 = carFactory.create("equs");
+   -->
+  
 </beans>
 
 
