@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+  
+  <bean class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+    <property name="customEditors">
+      <map>
+        <entry key="java.sql.Date" value="ch29.practice.MyCustomDateEditor"/>
+      </map>
+    </property>
+  </bean>
+  
+  <bean id="c1" class="ch29.practice.Student_test">
+    <property name="name" value="이원주"/>
+    <property name="email" value="lee@test.com"/>
+    <property name="password" value="1111"/>
+    <property name="tel" value="1111-1111"/>
+    <property name="age" value="33"/>
+    <property name="working" value="true"/>
+    <property name="date" value="2019-09-04"/>
+  </bean>
+ 
+</beans>
