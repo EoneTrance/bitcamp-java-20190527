@@ -13,7 +13,7 @@ import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 
-@Component
+//@Component
 public class PhotoBoardCommand {
 
   // 이 클래스에서 로그를 출력할 일이 있다면 다음과 같이 로거를 만들어 사용하라!
@@ -131,14 +131,13 @@ public class PhotoBoardCommand {
 
     try {
       int no = Integer.parseInt(request.getParameter("no"));
-
       PhotoBoard photoBoard = photoBoardDao.findWithFilesBy(no);
+      
       if (photoBoard == null) {
         out.println("<p>해당 번호의 데이터가 없습니다!</p>");
 
       } else {
         photoBoardDao.increaseViewCount(no);
-
         out.println("<form action='/photoboard/update'>");
         out.printf("번호: <input type='text' name='no' value='%d' readonly><br>\n",
             photoBoard.getNo());
@@ -154,6 +153,7 @@ public class PhotoBoardCommand {
           if (i <= files.size()) {
             out.printf("사진%d: <input type='text' name='filePath%d' value='%s'><br>\n",
                 i, i, files.get(i-1).getFilePath());
+            
           } else {
             out.printf("사진%d: <input type='text' name='filePath%d'><br>\n",
                 i, i);

@@ -12,7 +12,6 @@ tasks.withType(JavaCompile) {
     targetCompatibility = '1.8'
 }
 
-
 war {
     archiveName 'app4.war'
 }

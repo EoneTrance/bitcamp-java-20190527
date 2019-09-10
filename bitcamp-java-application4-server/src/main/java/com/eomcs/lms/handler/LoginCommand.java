@@ -35,7 +35,9 @@ public class LoginCommand {
   @RequestMapping("/auth/login") 
   public void execute(ServletRequest request, ServletResponse response) throws IOException {
     PrintWriter out = response.getWriter();
-    out.println("<html><head><title>로그인 결과</title></head>");
+    out.println("<html><head><title>로그인 결과</title>"
+        + "<meta http-equiv='Refresh' content='1;url=/photoboard/list'>"
+        + "</head>");
     out.println("<body><h1>로그인</h1>");
     try {
       HashMap<String,Object> params = new HashMap<>();
