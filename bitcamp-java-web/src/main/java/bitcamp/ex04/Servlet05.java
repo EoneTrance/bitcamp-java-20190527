@@ -8,13 +8,14 @@ import javax.servlet.GenericServlet;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
 // 멀티파트 형식의 데이터를 처리할 서블릿으로 선언하라.
 // => web.xml에 설정할 수도 있고, 다음과 같이 애노테이션으로 설정할 수도 있다.
 //
-//@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
+@MultipartConfig(maxFileSize = 1024 * 1024 * 10)
 //@WebServlet("/ex04/s5")
 public class Servlet05 extends GenericServlet {
   
@@ -58,9 +59,9 @@ public class Servlet05 extends GenericServlet {
       // 파일을 선택해서 업로드 했다면,
       filename = UUID.randomUUID().toString();
       photoPart.write(this.uploadDir + "/" + filename);
+      out.printf("사진=%s<br>\n", filename);
+      out.printf("<img src='../upload/%s'><br>\n", filename);
     }
-    out.printf("사진=%s<br>\n", filename);
-    out.printf("<img src='../upload/%s'><br>\n", filename);
     out.println("</body></html>");
   }
 }
