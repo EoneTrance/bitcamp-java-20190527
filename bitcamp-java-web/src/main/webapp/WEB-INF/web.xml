@@ -10,8 +10,9 @@
   </description>
 
   <display-name>웹 애플리케이션의 이름</display-name>
+
 <!-- 컨텍스트 초기화 파라미터 정보 -->
-<!-- 
+<!--  
   <context-param>
     <param-name>jdbc.driver</param-name>
     <param-value>org.mariadb.jdbc.Driver</param-value>
@@ -34,8 +35,8 @@
   </context-param>
 -->
 
-  <!-- 리스너 배치 정보 -->
-<!--
+<!-- 리스너 배치 정보 -->
+<!--  
   <listener>
     <listener-class>bitcamp.ex02.Listener01</listener-class>
   </listener>
@@ -44,8 +45,8 @@
   </listener>
 -->
 
-  <!-- 필터 배치 정보 -->
-<!-- 
+<!-- 필터 배치 정보 -->
+<!--  
   <filter>
     <filter-name>f1</filter-name>
     <filter-class>bitcamp.ex02.Filter01</filter-class>
@@ -63,9 +64,9 @@
     </init-param>
   </filter>
 -->
-
-  <!-- 필터를 언제 실행할 지 결정하기 위해 URL을 지정한다. -->
-<!--
+  
+<!-- 필터를 언제 실행할 지 결정하기 위해 URL을 지정한다. -->
+<!--  
   <filter-mapping>
     <filter-name>f1</filter-name>
     <url-pattern>/ex02/*</url-pattern>
@@ -99,7 +100,8 @@
          반드시 루트 / 로 시작한다. -->
     <url-pattern>/ex01/s01</url-pattern>
   </servlet-mapping>
-
+  
+   
   <servlet>
     <servlet-name>Servlet02</servlet-name>
     <servlet-class>bitcamp.ex01.Servlet02</servlet-class>
@@ -108,7 +110,7 @@
     <servlet-name>Servlet02</servlet-name>
     <url-pattern>/ex01/s02</url-pattern>
   </servlet-mapping>
-
+  
   <servlet>
     <servlet-name>Servlet03</servlet-name>
     <servlet-class>bitcamp.ex01.Servlet03</servlet-class>
@@ -122,7 +124,6 @@
   <servlet>
     <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
     <servlet-class>bitcamp.ex04.Servlet05</servlet-class>
-    
     <multipart-config>
       <max-file-size>10000000</max-file-size>
     </multipart-config>
@@ -154,7 +155,7 @@
   </servlet>
 -->
 
-<!-- 
+<!--  
   <servlet-mapping>
     <servlet-name>bitcamp.ex04.Servlet05</servlet-name>
     <url-pattern>/ex04/s5</url-pattern>
@@ -185,7 +186,8 @@
     <servlet-name>upload.jsp</servlet-name>
     <url-pattern>/fileupload/upload.jsp</url-pattern>
   </servlet-mapping>
--->
+-->  
+  
   
   <session-config>
     <session-timeout>1</session-timeout>
