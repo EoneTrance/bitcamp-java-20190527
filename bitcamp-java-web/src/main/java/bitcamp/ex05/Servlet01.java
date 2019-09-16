@@ -51,7 +51,6 @@ public class Servlet01 extends GenericServlet {
     } else {
       out.println("이 서블릿이 다루지 못하는 요청 방식입니다.");
     }
-      
   }
 }
 

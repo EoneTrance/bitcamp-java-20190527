@@ -69,10 +69,9 @@ public class Servlet08 extends GenericServlet {
     //    => 원본 이미지 파일이 저장된 경로를 알려주고 
     //       어떤 썸네일 이미지를 만들어야 하는지 설정한다.
     Thumbnails.of(this.uploadDir + "/" + filename)
-      .size(80, 80)
+      .size(80, 200)
       .outputFormat("jpg")
       .toFiles(Rename.PREFIX_DOT_THUMBNAIL);
-
     
     out.printf("사진=%s<br>\n", filename);
     out.printf("<img src='../upload/thumbnail.%s.jpg'><br>\n", filename);

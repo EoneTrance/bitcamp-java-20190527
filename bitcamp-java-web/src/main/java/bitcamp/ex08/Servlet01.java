@@ -31,6 +31,7 @@ public class Servlet01 extends HttpServlet {
     //    예4: 결제 완료 후 결제 상태 페이지로 자동 이동 
     // 
     response.setContentType("text/plain;charset=UTF-8");
+    //response.setBufferSize(Integer.MAX_VALUE-2); // <= Buffer의 최대 사이즈
     PrintWriter out = response.getWriter();
     
     out.println("안녕하세요! - /ex08/s1");
@@ -66,6 +67,9 @@ public class Servlet01 extends HttpServlet {
     }
     
     response.setHeader("Refresh", "3;url=s100");
+    
+    // 이 메소드의 호출이 끝나면 비로소 응답 프로토콜에 맞춰
+    // 클라이언트로 헤더와 내용을 전송한다.
   }
 }
 

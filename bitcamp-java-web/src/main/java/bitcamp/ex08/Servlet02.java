@@ -35,14 +35,25 @@ public class Servlet02 extends HttpServlet {
     PrintWriter out = response.getWriter();
     
     out.println("<html><head>");
-    
     // HTML을 출력하는 경우 
     // 응답 헤더가 아니라 HTML 헤더에 리프래시 명령을 설정할 수 있다.
     out.println("<meta http-equiv='Refresh' content='3;url=s100'>");
-
     out.println("</head><body>");
     out.println("안녕하세요! - /ex08/s1");
     out.println("</body></html>");
   }
 }
 
+// HTML 응답 프로토콜 예:
+/*
+HTTP/1.1 200
+Content-Type: text/html;charset=UTF-8
+Content-Length: 119
+Date: Mon, 16 Sep 2019 03:28:29 GMT
+
+<html><head>
+<meta http=equiv='Refresh' content='3;url=s100'>
+</head><body>
+안녕하세요! - /ex08/s1
+</body></html>
+*/

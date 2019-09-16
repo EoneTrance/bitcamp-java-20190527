@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
         @WebInitParam(name="jdbc.url", value="jdbc:mariadb://localhost/bitcampdb"),
         @WebInitParam(name="jdbc.username", value="bitcamp"),
         @WebInitParam(name="jdbc.password", value="1111")
-    } )
+    })
 @SuppressWarnings("serial")
 public class Servlet03 extends HttpServlet {
   
