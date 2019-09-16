@@ -55,7 +55,6 @@ Cookie: name=hong; age=20; working=true; name2=홍길동; name3=%ED%99%8D%EA%B8%
         }
       }
     }
-    
   }
 }
 
