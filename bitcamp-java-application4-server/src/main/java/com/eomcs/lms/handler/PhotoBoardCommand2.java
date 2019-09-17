@@ -13,7 +13,7 @@ import com.eomcs.lms.dao.PhotoFileDao;
 import com.eomcs.lms.domain.PhotoBoard;
 import com.eomcs.lms.domain.PhotoFile;
 
-@Component
+//@Component
 public class PhotoBoardCommand2 {
 
   private PhotoBoardDao photoBoardDao;
