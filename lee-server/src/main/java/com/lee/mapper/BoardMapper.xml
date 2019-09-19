@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lee.dao.BoardDao">
+  
+  <resultMap type="Board" id="BoardMap">
+    <id column="board_no" property="board_no"/>
+    <result column="member_no" property="member_no"/>
+    <result column="photo_no" property="photo_no"/>
+    <result column="title" property="title"/>
+    <result column="contents" property="contents"/>
+    <result column="created_date" property="created_date"/>
+  </resultMap>
+  
+  <sql id="boardsql">
+    select
+      board_no,
+      member_no,
+      photo_no,
+      title,
+      contents,
+      created_date
+  </sql>
+  
+  <sql id="boardwhere">
+    where board_no=#{no}
+  </sql>
+  
+  <select id="findAll" resultMap="BoardMap">
+    <include refid="boardsql"/>
+    from board
+    order by board_no desc
+  </select>
+  
+  <select id="findBy" parameterType="int" resultMap="BoardMap">
+    <include refid="boardsql"/>
+    
+  </select>
+
+
+
+
+
+</mapper>
