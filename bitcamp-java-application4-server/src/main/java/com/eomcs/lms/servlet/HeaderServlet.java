@@ -53,9 +53,10 @@ public class HeaderServlet extends HttpServlet{
     HttpSession session = request.getSession();
     Member loginUser = (Member) session.getAttribute("loginUser");
     if (loginUser == null) {
-      out.println("<a href='/auth/login'>로그인</a>");
+      out.println("<a href='/auth/login' class='btn btn-outline-light bnt-sm'>로그인</a>");
     } else {
-      out.printf("<a href='/member/detail?no=%d' style='color:black;'>%s</a>\n",
+      out.printf("<a id='userid' href='/member/detail?no=%d'"
+          + " style='color:black;font-size:x-large;'>%s</a>\n",
           loginUser.getNo(),
           loginUser.getName());
       out.println("<a href='/auth/logout' class='btn btn-outline-dark bnt-sm'>로그아웃</a>");
