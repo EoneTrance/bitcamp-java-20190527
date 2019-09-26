@@ -26,6 +26,12 @@ dependencies {
     // Spring WebMVC 프레임워크 라이브러리
     compile group: 'org.springframework', name: 'spring-webmvc', version: '5.1.9.RELEASE'
     
+    // 파일 시스템에 있는 .jar 파일 포함하기
+    //compile fileTree(dir: 'lib', include: '*.jar')
+    
+    // 파일 업로드 처리
+    compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+    
 // implementation?
 // - 배치에 포함된다.
     implementation 'com.google.guava:guava:27.1-jre'

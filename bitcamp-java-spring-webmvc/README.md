@@ -23,22 +23,65 @@
 
 - /WEB-INF/config/app-context.xml로 위치 이동
 - /WEB-INF/web.xml 변경
-  = contextCOnfigLocation 초기화 파라미터 삭제
+  - contextConfigLocation 초기화 파라미터 삭제
 
-## src02 : Spring Web MVC 설정하기 - XML 설정
+## src.05 : ContextLoaderListener와 DispatcherSerlvet의 IoC 컨테이너 I
 
-- /WEB-INF/web.xml에 DispatcherServlet 클래스 적용
-    - 이 클래스는 프론트 컨트롤러 역할을 수행한다.
-- DispatcherServlet 이 사용할 IoC 컨테이너를 설정한다.
-    - XML 설정 파일을 지정하는 방법
+- /WEB-INF/config/app-context.xml로 위치 이동 및 변경
+  - <mvc:annotaion-driven/> 태그 추가
+  - ContextLoaderListener는 WebMVC 관련 애노테이션을 처리할 객체가 없기 때문에
+    <mvc:annotaion-driven/> 태그를 사용하여 별도로 등록해야 한다.
+- /WEB-INF/web.xml 변경
+  - contextLoaderListener 추가
+  - contextLoaderListener가 사용할 contextConfigLocation 파라미터 설정
+  - DispatcherServlet에 contextConfigLocation 초기화 파라미터 추가. 값은 빈채로 둔다.
+  
+## src.06 : ContextLoaderListener와 DispatcherServlet의 관계
 
-## src03 : Spring Web MVC 설정하기 - Java config 설정
+- ContextLoaderListener의 IoC 컨테이너
+  - 모든 프론트 컨트롤러 및 페이지 컨트롤러가 공유할 객체를 보관한다.
+- DispatcherServlet의 IoC 컨테이너
+  - 페이지 컨트롤러, 인터셉터 등 웹 관련 객체를 보관한다.
+- /WEB-INF/config/app-context.xml 변경
+- /WEB-INF/app-servlet.xml 변경
+- /WEB-INF/admin-servlet.xml 추가
+- /WEB-INF/web.xml 변경
 
-- DispatcherServlet 이 사용할 IoC 컨테이너를 설정한다.
-    - 자바 클래스로 설정하는 방법
-    - WebApplicationInitializer 구현체를 이용하여 설정하는 방법
+## src.07 : Java Config로 DispatcherServlet의 IoC 컨테이너 설정하기
 
-## src04 : Request Handler 정의하는 방법
+- bitcamp.AppConfig 클래스 생성
+- /WEB-INF/web.xml 변경
+
+## src.08 : ServletContainerInitializer 구현체의 활용
+
+- Spring WebMVC의 WebApplicationInitializer를 이해하기 위한 기반 기술 소개.
+- bitcamp-java-web-library 프로젝트 준비
+- 자세한 것은 해당 프로젝트의 README.md 파일을 읽어 볼 것.
+
+## src.09 : WebApplicataionInitializer 구현체를 통해 DispaatcherServlet 등록하기
+
+- build.gradle 변경
+  - 기존에 테스트를 위해 포함했던 bitcamp-java-web-library.jar 파일 제거
+- WebApplicationInitializerImpl 생성
+  - 직접 IoC 컨테이너 준비
+  - DispatcherServlet 생성 
+  - ServletContext를 통해 배치
+- web.xml 변경
+  - DispatcherServlet 배치 정보 삭제
+  
+## src.10 : WebApplicataionInitializer 구현체를 통해 DispaatcherServlet 등록하기 II
+
+- WebApplicationInitializerImpl 변경
+  - 직접 인터페이스를 구현하는 대신에 추상 클래스를 상속 받아 적절한 메소드를 오버라이딩 한다.
+  - AbstractAnnotationConfigDispatcherServletInitializer 클래스를 상속 받기
+
+## src.11 : WebApplicataionInitializer 구현체를 통해 DispaatcherServlet 등록하기 III
+
+- WebApplicationInitializerImpl 변경
+  - 직접 인터페이스를 구현하는 대신에 추상 클래스를 상속 받아 적절한 메소드를 오버라이딩 한다.
+  - AbstractDispatcherServletInitializer 클래스를 상속 받기
+
+## src.12 : Request Handler 정의하는 방법
 
 - @Controller를 사용하여 페이지 컨트롤러 표시하기
 - Request Handler의 아규먼트
